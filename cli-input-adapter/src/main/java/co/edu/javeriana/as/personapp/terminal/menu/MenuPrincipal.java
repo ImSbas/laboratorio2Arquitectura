@@ -56,7 +56,7 @@ public class MenuPrincipal {
 				log.warn("Implementar Menu");
 				break;
 			case MODULO_TELEFONO:
-				//telefonoMenu.iniciarMenu(telefonoInputAdapterCli, keyboard);
+				telefonoMenu.iniciarMenu(telefonoInputAdapterCli, keyboard);
 				log.warn("Implementar Menu");
 				break;
 			case MODULO_ESTUDIO:

@@ -51,11 +51,7 @@ public class TelefonoInputAdapterCli {
 
     public void historial() {
         log.info("Into historial PersonaEntity in Input Adapter");
-        //phoneInputPort.findAll()
-                //.map(telefonoMapperCli::fromDomainToAdapterCli)
-          //     .forEach(System.out::println);
-       //telefonoRepositoryMaria.findAll().forEach(System.out::println)
-        ;
+       telefonoRepositoryMaria.findAll().forEach(System.out::println);
     }
 
 }

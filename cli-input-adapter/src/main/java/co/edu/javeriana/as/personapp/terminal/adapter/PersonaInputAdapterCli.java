@@ -3,6 +3,7 @@ package co.edu.javeriana.as.personapp.terminal.adapter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import co.edu.javeriana.as.personapp.mariadb.repository.PersonaRepositoryMaria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -31,6 +32,9 @@ public class PersonaInputAdapterCli {
 	@Autowired
 	private PersonaMapperCli personaMapperCli;
 
+	@Autowired
+	private PersonaRepositoryMaria personaRepositoryMaria;
+
 	PersonInputPort personInputPort;
 
 	public void setPersonOutputPortInjection(String dbOption) throws InvalidOptionException {
@@ -51,9 +55,7 @@ public class PersonaInputAdapterCli {
 	}
 	public void historial() {
 	    log.info("Into historial PersonaEntity in Input Adapter");
-	    personInputPort.findAll().stream()
-	        .map(personaMapperCli::fromDomainToAdapterCli)
-	        .forEach(System.out::println);
+		personaRepositoryMaria.findAll().forEach(System.out::println);
 	}
 
 }
