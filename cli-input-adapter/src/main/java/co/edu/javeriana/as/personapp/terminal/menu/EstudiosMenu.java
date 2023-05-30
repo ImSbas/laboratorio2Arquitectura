@@ -1,10 +1,15 @@
 package co.edu.javeriana.as.personapp.terminal.menu;
 
 import co.edu.javeriana.as.personapp.common.exceptions.InvalidOptionException;
+import co.edu.javeriana.as.personapp.domain.Person;
+import co.edu.javeriana.as.personapp.domain.Study;
+import co.edu.javeriana.as.personapp.mariadb.repository.PersonaRepositoryMaria;
 import co.edu.javeriana.as.personapp.terminal.adapter.EstudiosInputAdapterCli;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 @Slf4j
@@ -14,9 +19,11 @@ public class EstudiosMenu {
     private static final int PERSISTENCIA_MARIADB = 1;
     private static final int PERSISTENCIA_MONGODB = 2;
 
+
+
     private static final int OPCION_REGRESAR_MOTOR_PERSISTENCIA = 0;
     private static final int OPCION_VER_TODO = 1;
-    private static final int OPCION_AGREGAR_TELEFONO = 2;
+    private static final int OPCION_AGREGAR_ESTUDIO = 2;
     // mas opciones
 
     public void iniciarMenu(EstudiosInputAdapterCli estudiosInputAdapterCli, Scanner keyboard) {
@@ -59,6 +66,9 @@ public class EstudiosMenu {
                     case OPCION_VER_TODO:
                         estudiosInputAdapterCli.historial();
                         break;
+                    case OPCION_AGREGAR_ESTUDIO:
+                        estudiosInputAdapterCli.crear(estudiosInputAdapterCli.inputStudy(keyboard));
+                        break;
                     default:
                         log.warn("La opción elegida no es válida.");
                 }
@@ -70,10 +80,11 @@ public class EstudiosMenu {
 
 
 
+
     private void mostrarMenuOpciones() {
         System.out.println("----------------------");
-        System.out.println(OPCION_VER_TODO + " para ver todas los telefonos");
-        System.out.println(OPCION_AGREGAR_TELEFONO + "para agregar telefono");
+        System.out.println(OPCION_VER_TODO + " para ver todos los estudios");
+        System.out.println(OPCION_AGREGAR_ESTUDIO + "para agregar estudio");
         // implementar otras opciones
         System.out.println(OPCION_REGRESAR_MOTOR_PERSISTENCIA + " para regresar");
     }
