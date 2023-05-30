@@ -55,7 +55,7 @@ public class TelefonoInputAdapterCli {
 
     public void historial() {
         log.info("Into historial PersonaEntity in Input Adapter");
-       telefonoRepositoryMaria.findAll().forEach(System.out::println);
+        telefonoRepositoryMaria.findAll().forEach(System.out::println);
     }
 
     public boolean createPhone(Phone newPhone) {
