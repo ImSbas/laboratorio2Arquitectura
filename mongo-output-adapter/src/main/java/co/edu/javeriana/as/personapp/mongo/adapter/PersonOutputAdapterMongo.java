@@ -61,4 +61,9 @@ public class PersonOutputAdapterMongo implements PersonOutputPort {
 		}
 	}
 
+	@Override
+	public Person findByCc(String duenio) {
+		return null;
+	}
+
 }

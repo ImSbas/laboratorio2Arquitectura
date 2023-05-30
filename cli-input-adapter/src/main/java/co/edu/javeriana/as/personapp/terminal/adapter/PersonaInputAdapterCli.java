@@ -3,6 +3,8 @@ package co.edu.javeriana.as.personapp.terminal.adapter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import co.edu.javeriana.as.personapp.domain.Person;
+import co.edu.javeriana.as.personapp.mariadb.entity.PersonaEntity;
 import co.edu.javeriana.as.personapp.mariadb.repository.PersonaRepositoryMaria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +18,8 @@ import co.edu.javeriana.as.personapp.common.setup.DatabaseOption;
 import co.edu.javeriana.as.personapp.terminal.mapper.PersonaMapperCli;
 import co.edu.javeriana.as.personapp.terminal.model.PersonaModelCli;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.transaction.Transactional;
 
 @Slf4j
 @Adapter
@@ -33,7 +37,7 @@ public class PersonaInputAdapterCli {
 	private PersonaMapperCli personaMapperCli;
 
 	@Autowired
-	private PersonaRepositoryMaria personaRepositoryMaria;
+	public PersonaRepositoryMaria personaRepositoryMaria;
 
 	PersonInputPort personInputPort;
 
@@ -58,4 +62,17 @@ public class PersonaInputAdapterCli {
 		personaRepositoryMaria.findAll().forEach(System.out::println);
 	}
 
+	public Person getByCc(String duenio) {
+		try{
+
+			PersonaEntity persona = personaRepositoryMaria.findByCc(duenio);
+			System.out.printf("Aquiiii " + persona);
+			Person finded = personaMapperCli.fromClitoDomain(persona) ;
+			return finded;
+		}catch(Error error){
+			System.out.printf(error.getMessage());
+			return null;
+		}
+
+	}
 }

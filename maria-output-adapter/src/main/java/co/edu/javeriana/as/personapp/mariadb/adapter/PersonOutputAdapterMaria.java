@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Adapter("personOutputAdapterMaria")
-@Transactional
 public class PersonOutputAdapterMaria implements PersonOutputPort {
 
 	@Autowired
@@ -50,12 +49,13 @@ public class PersonOutputAdapterMaria implements PersonOutputPort {
 
 	@Override
 	public Person findById(Integer identification) {
-		log.debug("Into findById on Adapter MariaDB");
-		if (personaRepositoryMaria.findById(identification).isEmpty()) {
-			return null;
-		} else {
-			return personaMapperMaria.fromAdapterToDomain(personaRepositoryMaria.findById(identification).get());
-		}
+		return null;
 	}
+
+	@Override
+	public Person findByCc(String duenio) {
+		return null;
+	}
+
 
 }

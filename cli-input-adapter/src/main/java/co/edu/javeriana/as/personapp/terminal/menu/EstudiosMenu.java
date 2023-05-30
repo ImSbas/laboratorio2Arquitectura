@@ -1,21 +1,15 @@
 package co.edu.javeriana.as.personapp.terminal.menu;
 
 import co.edu.javeriana.as.personapp.common.exceptions.InvalidOptionException;
-import co.edu.javeriana.as.personapp.domain.Person;
-import co.edu.javeriana.as.personapp.domain.Phone;
-import co.edu.javeriana.as.personapp.terminal.adapter.PersonaInputAdapterCli;
-import co.edu.javeriana.as.personapp.terminal.adapter.TelefonoInputAdapterCli;
+import co.edu.javeriana.as.personapp.terminal.adapter.EstudiosInputAdapterCli;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 @Slf4j
-@Controller
-public class TelefonoMenu {
-    private static final PersonaInputAdapterCli personAdapterCli = new PersonaInputAdapterCli();
+public class EstudiosMenu {
+
     private static final int OPCION_REGRESAR_MODULOS = 0;
     private static final int PERSISTENCIA_MARIADB = 1;
     private static final int PERSISTENCIA_MONGODB = 2;
@@ -25,7 +19,7 @@ public class TelefonoMenu {
     private static final int OPCION_AGREGAR_TELEFONO = 2;
     // mas opciones
 
-    public void iniciarMenu(TelefonoInputAdapterCli telefonoInputAdapterCli, Scanner keyboard) {
+    public void iniciarMenu(EstudiosInputAdapterCli estudiosInputAdapterCli, Scanner keyboard) {
         boolean isValid = false;
         do {
             try {
@@ -36,12 +30,12 @@ public class TelefonoMenu {
                         isValid = true;
                         break;
                     case PERSISTENCIA_MARIADB:
-                        telefonoInputAdapterCli.setPhoneOutputPortInjection("MARIA");
-                        menuOpciones(telefonoInputAdapterCli,keyboard);
+                        estudiosInputAdapterCli.setEstudiosOutputPortInjection("MARIA");
+                        menuOpciones(estudiosInputAdapterCli,keyboard);
                         break;
                     case PERSISTENCIA_MONGODB:
-                        telefonoInputAdapterCli.setPhoneOutputPortInjection("MONGO");
-                        menuOpciones(telefonoInputAdapterCli,keyboard);
+                        estudiosInputAdapterCli.setEstudiosOutputPortInjection("MONGO");
+                        menuOpciones(estudiosInputAdapterCli,keyboard);
                         break;
                     default:
                         log.warn("La opción elegida no es válida.");
@@ -52,7 +46,7 @@ public class TelefonoMenu {
         } while (!isValid);
     }
 
-    private void menuOpciones(TelefonoInputAdapterCli telefonoInputAdapterCli, Scanner keyboard) {
+    private void menuOpciones(EstudiosInputAdapterCli estudiosInputAdapterCli, Scanner keyboard) {
         boolean isValid = false;
         do {
             try {
@@ -63,16 +57,8 @@ public class TelefonoMenu {
                         isValid = true;
                         break;
                     case OPCION_VER_TODO:
-                        telefonoInputAdapterCli.historial();
+                        estudiosInputAdapterCli.historial();
                         break;
-                    // mas opciones
-                    case OPCION_AGREGAR_TELEFONO:
-                        Phone phone = inputPhoneParameters(keyboard);
-                        if(phone.equals(null)){
-                            log.error("el dueño ingresado no exsite en la base de datos");
-                            continue;
-                        }
-                        telefonoInputAdapterCli.createPhone(phone);
                     default:
                         log.warn("La opción elegida no es válida.");
                 }
@@ -82,23 +68,7 @@ public class TelefonoMenu {
         } while (!isValid);
     }
 
-    private Phone inputPhoneParameters(Scanner keyboard) {
-        System.out.printf("ingrese el numero de telefono");
-        String num = keyboard.next();
-        System.out.printf("ingrese el operador");
-        String oper = keyboard.next();
-        System.out.printf("ingrese el dueño, asegurese que este se encuentre acualtmente registrado");
-        String duenio = keyboard.next();
-        Person finded = personAdapterCli.getByCc(duenio);
-        System.out.printf(finded.getFirstName());
-        if(!finded.equals(null))
-            return null;
-        Phone phone = new Phone();
-        phone.setCompany(oper);
-        phone.setNumber(num);
-        phone.setOwner(finded);
-        return phone;
-    }
+
 
     private void mostrarMenuOpciones() {
         System.out.println("----------------------");

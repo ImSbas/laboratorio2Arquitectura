@@ -1,5 +1,7 @@
 package co.edu.javeriana.as.personapp.mariadb.entity;
 
+import co.edu.javeriana.as.personapp.domain.Study;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,7 +22,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @Table(name="persona", catalog = "persona_db", schema = "")
 @NamedQueries({ @NamedQuery(name = "PersonaEntity.findAll", query = "SELECT p FROM PersonaEntity p"),
-		@NamedQuery(name = "PersonaEntity.findByCc", query = "SELECT p FROM PersonaEntity p WHERE p.cc = :cc"),
+		//@NamedQuery(name = "PersonaEntity.findByCc", query = "SELECT p FROM PersonaEntity p WHERE p.cc = :cc"),
 		@NamedQuery(name = "PersonaEntity.findByNombre", query = "SELECT p FROM PersonaEntity p WHERE p.nombre = :nombre"),
 		@NamedQuery(name = "PersonaEntity.findByApellido", query = "SELECT p FROM PersonaEntity p WHERE p.apellido = :apellido"),
 		@NamedQuery(name = "PersonaEntity.findByGenero", query = "SELECT p FROM PersonaEntity p WHERE p.genero = :genero"),
